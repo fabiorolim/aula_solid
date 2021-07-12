@@ -10,11 +10,7 @@ class Order:
         self.items.append(item)
 
     def get_subtotal(self):
-        subtotal = 0
-        for item in self.items:
-            subtotal += item.price
-
-        return subtotal
+        return sum([item.price for item in self.items])
 
     def get_taxes(self, data):
         taxes = 0
