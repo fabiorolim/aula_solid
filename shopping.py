@@ -6,15 +6,18 @@ class Order:
     def __init__(self):
         self.items = []
 
+    def __getitem__(self, i):
+        return self.items[i]
+
     def add_item(self, item):
         self.items.append(item)
 
     def get_subtotal(self):
-        return sum([item.price for item in self.items])
+        return sum([item.price for item in self])
 
     def get_taxes(self, data):
         taxes = 0
-        for item in self.items:
+        for item in self:
             if isinstance(item, ItemTaxed):
                 taxes += item.calculate_taxes(data)
 
