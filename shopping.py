@@ -1,5 +1,4 @@
 from abc import abstractmethod, ABC
-from datetime import datetime
 
 
 class Order:
@@ -17,16 +16,16 @@ class Order:
 
         return subtotal
 
-    def get_taxes(self):
+    def get_taxes(self, data):
         taxes = 0
         for item in self.items:
             if isinstance(item, ItemTaxed):
-                taxes += item.calculate_taxes()
+                taxes += item.calculate_taxes(data)
 
         return taxes
 
-    def get_total(self):
-        return self.get_subtotal() + self.get_taxes()
+    def get_total(self, data):
+        return self.get_subtotal() + self.get_taxes(data)
 
 
 class Item(ABC):
@@ -40,11 +39,11 @@ class Item(ABC):
 class ItemTaxed(Item):
 
     # Template method
-    def calculate_taxes(self):
-        return self.price * self.get_tax()
+    def calculate_taxes(self, data):
+        return self.price * self.get_tax(data)
 
     @abstractmethod
-    def get_tax(self):
+    def get_tax(self, data):
         pass
 
 
@@ -53,12 +52,10 @@ class Cigar(ItemTaxed):
     def __init__(self, description, price):
         super(Cigar, self).__init__('Cigar', description, price)
 
-    # how to test?
-    def get_tax(self):
-        data = datetime.now()
+    def get_tax(self, data):
         if data.month == 7:
-            return 0.2
-        return 0.1
+            return 0.1
+        return 0.2
 
 
 class Beer(ItemTaxed):
@@ -66,7 +63,7 @@ class Beer(ItemTaxed):
     def __init__(self, description, price):
         super(Beer, self).__init__('Beer', description, price)
 
-    def get_tax(self):
+    def get_tax(self, data):
         return 0.1
 
 
