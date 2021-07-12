@@ -49,9 +49,11 @@ class Cigar(ItemTaxed):
         super(Cigar, self).__init__('Cigar', description, price)
 
     def get_tax(self, data):
+        tax = 0.2
         if data.month == 7:
-            return 0.1
-        return 0.2
+            tax = 0.1
+
+        return tax
 
 
 class Beer(ItemTaxed):
