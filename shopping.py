@@ -19,7 +19,8 @@ class Order:
     def get_taxes(self):
         taxes = 0
         for item in self.items:
-            taxes += item.calculate_taxes()
+            if isinstance(item, ItemTaxed):
+                taxes += item.calculate_taxes()
 
         return taxes
 
@@ -34,6 +35,9 @@ class Item(ABC):
         self.description = description
         self.price = price
 
+
+class ItemTaxed(Item):
+
     # Template method
     def calculate_taxes(self):
         return self.price * self.get_tax()
@@ -43,7 +47,7 @@ class Item(ABC):
         pass
 
 
-class Cigar(Item):
+class Cigar(ItemTaxed):
 
     def __init__(self, description, price):
         super(Cigar, self).__init__('Cigar', description, price)
@@ -52,7 +56,7 @@ class Cigar(Item):
         return 0.2
 
 
-class Beer(Item):
+class Beer(ItemTaxed):
 
     def __init__(self, description, price):
         super(Beer, self).__init__('Beer', description, price)
@@ -65,7 +69,3 @@ class Water(Item):
 
     def __init__(self, description, price):
         super(Water, self).__init__('Water', description, price)
-
-    # No Liskov Substitution Principle -> Tests Failed
-    def get_tax(self):
-        raise Exception('Not implemented')
