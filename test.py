@@ -28,16 +28,10 @@ class TestOrder(TestCase):
         self.assertEqual(self.order.get_total(self.data), 19.5)
 
 
-class TestOrderHoliday(TestCase):
+class TestOrderHoliday(TestOrder):
 
     def setUp(self):
-        self.order = Order()
-        self.cigar = Cigar('Hollywood', 10)
-        self.beer = Beer('Heineken', 5)
-        self.walter = Water('Manaíra', 2)
-        self.order.add_item(self.cigar)
-        self.order.add_item(self.beer)
-        self.order.add_item(self.walter)
+        super(TestOrderHoliday, self).setUp()
         self.data = datetime.fromisoformat('2021-07-12')
 
     def test_get_subtotal(self):
