@@ -1,4 +1,5 @@
 from abc import abstractmethod, ABC
+from datetime import datetime
 
 
 class Order:
@@ -52,8 +53,12 @@ class Cigar(ItemTaxed):
     def __init__(self, description, price):
         super(Cigar, self).__init__('Cigar', description, price)
 
+    # how to test?
     def get_tax(self):
-        return 0.2
+        data = datetime.date()
+        if data.month == 1:
+            return 0.2
+        return 0.1
 
 
 class Beer(ItemTaxed):
