@@ -1,14 +1,14 @@
 from unittest import TestCase
-from shopping import Order, Item
+from shopping import Order, Item, Cigar, Water, Beer
 
 
 class TestOrder(TestCase):
 
     def setUp(self):
         self.order = Order()
-        self.cigar = Item('Cigar', 'Hollywood', 10)
-        self.beer = Item('Beer', 'Heineken', 5)
-        self.walter = Item('Walter', 'Manaíra', 2)
+        self.cigar = Cigar('Hollywood', 10)
+        self.beer = Beer('Heineken', 5)
+        self.walter = Water('Manaíra', 2)
         self.order.add_item(self.cigar)
         self.order.add_item(self.beer)
         self.order.add_item(self.walter)

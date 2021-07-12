@@ -1,3 +1,6 @@
+from abc import abstractmethod, ABC
+
+
 class Order:
 
     def __init__(self):
@@ -24,19 +27,40 @@ class Order:
         return self.get_subtotal() + self.get_taxes()
 
 
-class Item:
+class Item(ABC):
 
     def __init__(self, category, description, price):
         self.category = category
         self.description = description
         self.price = price
 
-    # No Open-Closed Principle -> when to add new items
+    @abstractmethod
     def calculate_taxes(self):
-        taxes = 0
-        if self.category == 'Cigar':
-            taxes = self.price * 0.2
-        elif self.category == 'Beer':
-            taxes = self.price * 0.1
+        pass
 
-        return taxes
+
+class Cigar(Item):
+
+    def __init__(self, description, price):
+        super(Cigar, self).__init__('Cigar', description, price)
+
+    def calculate_taxes(self):
+        return self.price * 0.2
+
+
+class Beer(Item):
+
+    def __init__(self, description, price):
+        super(Beer, self).__init__('Beer', description, price)
+
+    def calculate_taxes(self):
+        return self.price * 0.1
+
+
+class Water(Item):
+
+    def __init__(self, description, price):
+        super(Water, self).__init__('Water', description, price)
+
+    def calculate_taxes(self):
+        return 0
