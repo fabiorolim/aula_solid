@@ -55,8 +55,8 @@ class Cigar(ItemTaxed):
 
     # how to test?
     def get_tax(self):
-        data = datetime.date()
-        if data.month == 1:
+        data = datetime.now()
+        if data.month == 7:
             return 0.2
         return 0.1
 
