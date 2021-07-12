@@ -34,8 +34,12 @@ class Item(ABC):
         self.description = description
         self.price = price
 
-    @abstractmethod
+    # Template method
     def calculate_taxes(self):
+        return self.price * self.get_tax()
+
+    @abstractmethod
+    def get_tax(self):
         pass
 
 
@@ -44,8 +48,8 @@ class Cigar(Item):
     def __init__(self, description, price):
         super(Cigar, self).__init__('Cigar', description, price)
 
-    def calculate_taxes(self):
-        return self.price * 0.2
+    def get_tax(self):
+        return 0.2
 
 
 class Beer(Item):
@@ -53,8 +57,8 @@ class Beer(Item):
     def __init__(self, description, price):
         super(Beer, self).__init__('Beer', description, price)
 
-    def calculate_taxes(self):
-        return self.price * 0.1
+    def get_tax(self):
+        return 0.1
 
 
 class Water(Item):
@@ -62,5 +66,5 @@ class Water(Item):
     def __init__(self, description, price):
         super(Water, self).__init__('Water', description, price)
 
-    def calculate_taxes(self):
+    def get_tax(self):
         return 0

@@ -1,5 +1,5 @@
 from unittest import TestCase
-from shopping import Order, Item, Cigar, Water, Beer
+from shopping import Order, Cigar, Water, Beer
 
 
 class TestOrder(TestCase):
