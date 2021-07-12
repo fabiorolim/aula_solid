@@ -13,14 +13,10 @@ class Order:
 
         return subtotal
 
-    # No Single responsibility
     def get_taxes(self):
         taxes = 0
         for item in self.items:
-            if item.category == 'Cigar':
-                taxes += item.price * 0.2
-            elif item.category == 'Beer':
-                taxes += item.price * 0.1
+            taxes += item.calculate_taxes()
 
         return taxes
 
@@ -34,3 +30,13 @@ class Item:
         self.category = category
         self.description = description
         self.price = price
+
+    # No Open-Closed Principle -> when to add new items
+    def calculate_taxes(self):
+        taxes = 0
+        if self.category == 'Cigar':
+            taxes = self.price * 0.2
+        elif self.category == 'Beer':
+            taxes = self.price * 0.1
+
+        return taxes
