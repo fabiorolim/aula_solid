@@ -66,5 +66,6 @@ class Water(Item):
     def __init__(self, description, price):
         super(Water, self).__init__('Water', description, price)
 
+    # No Liskov Substitution Principle -> Tests Failed
     def get_tax(self):
-        return 0
+        raise Exception('Not implemented')
